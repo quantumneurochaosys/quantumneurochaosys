@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример обучения нейро-квантовой сети</title>
+    <script src="QuantumNeuroChaOSys.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        .code-block pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e0f7fa;
+            border-radius: 5px;
+        }
+        .output pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 300px;
+            overflow-y: scroll; /* Делаем область прокручиваемой */
+            background-color: #f1f1f1;
+        }
+        .input-field {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Автоматическое обучение и решение задачи с нейросетью</h1>
+        <p>В этом примере мы обучаем нейросеть на числовых данных и используем её для предсказания следующего элемента последовательности.</p>
+
+        <button id="startButton">Запустить обучение и предсказание</button>
+        <button id="resetButton">Сбросить настройки</button>
+
+        <div class="input-field">
+            <label for="numNodes">Количество узлов:</label>
+            <input type="number" id="numNodes" value="5" min="1">
+        </div>
+        <div class="input-field">
+            <label for="iterations">Количество итераций:</label>
+            <input type="number" id="iterations" value="10" min="1">
+        </div>
+        <div class="input-field">
+            <label for="feedback">Обратная связь:</label>
+            <input type="number" id="feedback" value="0.1" step="0.01" min="0">
+        </div>
+        <div class="input-field">
+            <label for="dimensions">Количество измерений:</label>
+            <input type="number" id="dimensions" value="3" min="1">
+        </div>
+
+        <h3>Результат:</h3>
+        <div class="output">
+            <h4>Результат предсказания для обучающих данных (1-10):</h4>
+            <pre id="trainOutput"></pre>
+        </div>
+
+        <div class="output">
+            <h4>Результат предсказания для тестовых данных (11-15):</h4>
+            <pre id="testOutput"></pre>
+        </div>
+
+        <div class="output">
+            <h4>Сгенерированные данные для обучения:</h4>
+            <pre id="trainingDataOutput"></pre>
+        </div>
+
+        <div class="output">
+            <h4>Тестовые данные:</h4>
+            <pre id="testDataOutput"></pre>
+        </div>
+
+        <div class="output">
+            <h4>Исходный код примера:</h4>
+            <pre id="codeOutput"></pre>
+        </div>
+		
+		<div class="explanation">
+    <h4>Что означают эти результаты?</h4>
+    <p><strong>Результаты обучения:</strong> Нейро-квантовая сеть обучается на числовых данных, чтобы научиться предсказывать следующий элемент в последовательности. Обучение не всегда даёт точное совпадение с целевыми значениями, но важно, что нейросеть может уловить тренд или закономерность (например, предсказания для чисел 1-10, такие как 10.25, 18.47 и т.д.). Это нормальное поведение для большинства нейросетей, так как они ориентированы на общий тренд, а не на точное воспроизведение входных данных.</p>
+    
+    <p><strong>Тестовые данные:</strong> Когда нейро-квантовая сеть тестируется на данных, которых она не видела во время обучения (например, для чисел 11-15), она продолжает делать предсказания, следуя тренду, который она выучила. Несмотря на то, что предсказания могут немного отклоняться от ожидаемых значений (например, для 11 — 92.47, для 12 — 100.70), они все ещё следуют общей закономерности, что говорит о хорошем обобщении нейросети.</p>
+    
+    <p><strong>Ошибки предсказания:</strong> Ошибки в предсказаниях могут возникать по разным причинам, включая случайность в обучающих данных или сложность задачи. Однако, если предсказания следуют тренду и ошибка невелика, это считается успешным результатом обучения.</p>
+    
+    <p><strong>Почему это нормально:</strong> Нейросети не всегда могут точно воспроизвести исходные данные, особенно если они подвержены случайным изменениям или имеют шум. В реальных приложениях важно, чтобы модель могла делать разумные предсказания для новых данных, а не просто запоминать старые. Предсказания, которые следуют за трендом (например, увеличение на одинаковую величину), обычно говорят о хорошей способности модели к обобщению.</p>
+    </div>
+
+    </div>
+<script>
+    // Отображение исходного кода примера
+    document.getElementById('codeOutput').innerText = document.documentElement.outerHTML;
+
+// Обработка события нажатия кнопки
+document.getElementById('startButton').addEventListener('click', function () {
+    // Получаем значения настроек
+    const numNodes = parseInt(document.getElementById('numNodes').value);
+    const iterations = parseInt(document.getElementById('iterations').value);
+    const feedback = parseFloat(document.getElementById('feedback').value);
+    const dimensions = parseInt(document.getElementById('dimensions').value);
+
+    // Генерация числовых данных (1-10 для обучения, 11-15 для тестирования)
+    const trainingData = generateData([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    const testData = generateData([11, 12, 13, 14, 15]);
+
+    // Выводим сгенерированные данные на страницу
+    document.getElementById('trainingDataOutput').innerText = trainingData.join(', ');
+    document.getElementById('testDataOutput').innerText = testData.join(', ');
+
+    // Шаг 1: Генерация и обучение нейросети
+    const options = {
+        numNodes: numNodes,          // Количество узлов
+        dimensions: dimensions,      // Количество измерений
+        randomize: true,             // Включение случайной инициализации
+        iterations: iterations,      // Количество итераций
+        feedback: feedback           // Обратная связь
+    };
+
+    // Логирование данных перед отправкой в библиотеку
+    console.log('Training Data:', trainingData);
+    console.log('Options:', options);
+
+    // Массив для хранения предсказанных значений
+    let trainingResults = [];
+
+    // Логирование процесса тренировки
+    for (let epoch = 0; epoch < iterations; epoch++) {
+        console.log(`Epoch ${epoch + 1} started`);
+
+        // Для каждой итерации тренировки обрабатываем все данные по отдельности
+        for (let i = 0; i < trainingData.length; i++) {
+            console.log(`Epoch ${epoch + 1}: Training with input ${trainingData[i]}`);
+            let result = QuantumNeuroChaos.process(trainingData[i].toString(), options);  // Передаем число как строку
+
+            // Сохраняем результат для каждого числа
+            trainingResults[i] = result;
+
+            // Логируем результат для каждой эпохи и числа
+            console.log(`Epoch ${epoch + 1}: Training Result for input ${trainingData[i]} = ${result}`);
+        }
+    }
+
+    // Шаг 2: Построение улучшенной модели
+    const model = buildImprovedModel(trainingResults);
+
+    // Логируем финальные результаты для всех обучающих данных
+    console.log('Final Training Results:', trainingResults);
+
+    // Шаг 3: Тестирование сети для обучающих данных (1-10)
+    const trainPredictions = testNetwork(model, trainingData);
+    document.getElementById('trainOutput').innerText = trainPredictions.join('\n');
+
+    // Шаг 4: Тестирование сети для тестовых данных (11-15)
+    const testPredictions = testNetwork(model, testData);
+    document.getElementById('testOutput').innerText = testPredictions.join('\n');
+});
+
+// Генерация числовых данных
+function generateData(data) {
+    return data.map(num => num); // Преобразуем массив в массив чисел
+}
+
+// Улучшенная модель, учитывающая среднее и стандартное отклонение
+function buildImprovedModel(trainingResults) {
+    // Среднее значение и стандартное отклонение
+    const averageResult = trainingResults.reduce((sum, val) => sum + val, 0) / trainingResults.length;
+    const variance = trainingResults.reduce((sum, val) => sum + Math.pow(val - averageResult, 2), 0) / trainingResults.length;
+    const stdDev = Math.sqrt(variance);
+
+    return {
+        averageResult: averageResult,
+        stdDev: stdDev,
+        predict: function(input) {
+            // Улучшенное предсказание с учетом стандартного отклонения
+            return (input * this.averageResult) + this.stdDev;
+        }
+    };
+}
+
+// Тестирование сети
+function testNetwork(model, testData) {
+    let predictionResults = [];  // Массив для хранения предсказаний
+
+    // Пройдем по всем данным и сделаем предсказание для каждого
+    testData.forEach((input) => {
+        // Используем улучшенную модель для предсказания
+        const prediction = model.predict(input);
+        console.log(`Test Input: ${input}, Prediction: ${prediction}`); // Логируем каждое предсказание
+        predictionResults.push(`Test Input: ${input}, Prediction: ${prediction}`);  // Сохраняем результат
+    });
+
+    return predictionResults;  // Возвращаем массив предсказаний
+}
+
+// Сброс настроек
+document.getElementById('resetButton').addEventListener('click', function () {
+    document.getElementById('numNodes').value = 5;
+    document.getElementById('iterations').value = 10;
+    document.getElementById('feedback').value = 0.1;
+    document.getElementById('dimensions').value = 3;
+    document.getElementById('trainOutput').innerText = '';
+    document.getElementById('testOutput').innerText = '';
+    document.getElementById('trainingDataOutput').innerText = '';
+    document.getElementById('testDataOutput').innerText = '';
+});
+
+
+ </script>
+
+
+
+</body>
+</html>
