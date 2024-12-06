@@ -65,6 +65,15 @@
  */
 
 /**
+ * This library was developed by the author from scratch without using external libraries 
+ * or borrowing code from third-party sources. The author did not rely on existing solutions 
+ * but respects the intellectual property rights of other developers.
+ * 
+ * If any elements of the library accidentally overlap with existing solutions, 
+ * this is purely coincidental, and the author is ready to acknowledge the priorities of the original developers.
+ */
+
+/**
  * QuantumNeuroChaOSys.js
  *  
  * Версия: 0.1.17
@@ -117,6 +126,15 @@
  * 
  * 5. Заключительные положения
  * Этот документ является юридически обязывающим соглашением между вами (пользователем) и владельцем прав на Программное обеспечение. Если какие-либо положения настоящего соглашения будут признаны недействительными или не имеющими силы, остальные положения остаются в силе.
+ */
+ 
+ /**
+ * Эта библиотека разработана автором с нуля без использования внешних библиотек или
+ * заимствования кода из сторонних источников. Автор не ориентировался на существующие
+ * решения, однако уважает интеллектуальные права других разработчиков.
+ * 
+ * Если какие-либо элементы библиотеки случайно пересекаются с существующими решениями, 
+ * это является неумышленным совпадением, и автор готов признать приоритеты оригинальных разработчиков.
  */
  
 (function () {

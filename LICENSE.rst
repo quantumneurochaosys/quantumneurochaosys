@@ -24,3 +24,12 @@ All rights to the Software are owned by QuantumNeuroChaosSystem HomeDev by I. "C
 
 5. Final Provisions
 This document is a legally binding agreement between you (the user) and the copyright holder of the Software. If any provisions of this agreement are found to be invalid or unenforceable, the remaining provisions shall remain in effect.
+
+/**
+ * This library was developed by the author from scratch without using external libraries 
+ * or borrowing code from third-party sources. The author did not rely on existing solutions 
+ * but respects the intellectual property rights of other developers.
+ * 
+ * If any elements of the library accidentally overlap with existing solutions, 
+ * this is purely coincidental, and the author is ready to acknowledge the priorities of the original developers.
+ */
