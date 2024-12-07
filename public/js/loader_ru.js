@@ -1,4 +1,4 @@
-const scripts = ['js/notificationBanner.js', 'js/QuantumNeuroChaOSys.js', 'js/animation.js'];
+const scripts = ['js/notificationBanner_ru.js', 'js/QuantumNeuroChaOSys.js', 'js/animation.js'];
 
 // Функция для последовательной загрузки скриптов
 function loadScriptSequentially(scripts, index = 0) {
