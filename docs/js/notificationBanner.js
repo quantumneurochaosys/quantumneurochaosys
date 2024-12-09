@@ -16,7 +16,7 @@ if (!localStorage.getItem('notification_accepted') && showNotificationForTesting
     notificationBanner.style.fontSize = '14px';
     notificationBanner.innerHTML = `
         <p>This website does not use cookies and does not collect personal data. All features of the website are available without registration.
-        <button id="accept-notification" style="margin-left: 10px; background-color: #1565c0; color: white; border: none; padding: 5px 15px; border-radius: 5px;">Закрыть</button></p>
+        <button id="accept-notification" style="margin-left: 10px; background-color: #1565c0; color: white; border: none; padding: 5px 15px; border-radius: 5px;">Close</button></p>
     `;
 
     document.body.appendChild(notificationBanner);
